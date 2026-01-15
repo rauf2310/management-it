@@ -1,0 +1,255 @@
+/* --- Google Font & Root Variables --- */
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap");
+
+:root {
+  --primary-accent: #4318ff;
+  --primary-hover: #3311db;
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --text-dim: rgba(255, 255, 255, 0.6);
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* --- Global Reset --- */
+body {
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    url("assets/img/2.jpg"); /* Pastikan path gambar benar */
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  min-height: 100vh;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  color: #ffffff;
+  overflow-x: hidden; /* Mencegah scroll kiri-kanan */
+}
+
+/* --- Container & Glass Card --- */
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  padding: 30px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+}
+
+/* --- Search Box (Kanan) --- */
+.search-container {
+  width: 100%;
+  max-width: 300px;
+}
+
+.search-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-box i {
+  position: absolute;
+  left: 15px;
+  color: var(--text-dim);
+  pointer-events: none;
+}
+
+.form-control-glass {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid var(--glass-border) !important;
+  border-radius: 12px !important;
+  padding: 10px 15px 10px 42px !important;
+  color: white !important;
+  backdrop-filter: blur(5px);
+  transition: var(--transition-smooth);
+}
+
+.form-control-glass:focus {
+  background: rgba(255, 255, 255, 0.15) !important;
+  border-color: var(--primary-accent) !important;
+  box-shadow: 0 0 15px rgba(67, 24, 255, 0.3);
+  outline: none;
+}
+
+/* --- Table Styles --- */
+.table-responsive {
+  overflow-x: hidden; /* Menghapus scroll internal jika kolom pas */
+}
+
+.table-glass {
+  width: 100% !important;
+  border-collapse: separate;
+  border-spacing: 0 10px;
+  table-layout: fixed; /* Mencegah tabel meluap */
+}
+
+.table-glass thead th {
+  color: var(--text-dim);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 10px 20px;
+  border: none;
+}
+
+.table-glass tbody tr {
+  background: rgba(255, 255, 255, 0.03);
+  transition: var(--transition-smooth);
+}
+
+.table-glass tbody tr:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: scale(1.01);
+}
+
+.table-glass td {
+  padding: 18px 20px;
+  border: none;
+  vertical-align: middle;
+  word-wrap: break-word; /* Mencegah teks panjang merusak tabel */
+}
+
+.table-glass td:first-child {
+  border-radius: 15px 0 0 15px;
+}
+.table-glass td:last-child {
+  border-radius: 0 15px 15px 0;
+}
+
+/* --- Badge & Status Pills --- */
+.badge-edit-min {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--glass-border);
+  color: #fff;
+  padding: 6px 14px;
+  border-radius: 10px;
+  font-weight: 600;
+  transition: var(--transition-smooth);
+}
+
+.badge-edit-min:hover {
+  background: #fff !important;
+  color: #1b2559 !important;
+}
+
+.status-pill {
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  display: inline-block;
+}
+
+.pill-success {
+  background: rgba(5, 205, 153, 0.15);
+  color: #05cd99;
+}
+.pill-warning {
+  background: rgba(255, 181, 71, 0.15);
+  color: #ffb547;
+}
+.pill-danger {
+  background: rgba(238, 93, 80, 0.15);
+  color: #ee5d50;
+}
+
+/* --- Modal Styles (Perbaikan Klik & Visual) --- */
+.modal-backdrop {
+  backdrop-filter: blur(5px);
+  background-color: rgba(0, 0, 0, 0.5) !important;
+}
+
+.modal-content {
+  background: #ffffff !important; /* Solid agar mudah dibaca */
+  border-radius: 20px;
+  border: none;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+  color: #1b2559;
+}
+
+.form-control-modern {
+  background: #f4f7fe;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  padding: 12px;
+  font-weight: 700;
+  color: #1b2559;
+  transition: all 0.2s ease;
+}
+
+.form-control-modern:focus {
+  background: #fff;
+  border-color: var(--primary-accent);
+  box-shadow: 0 10px 20px rgba(67, 24, 255, 0.1);
+  outline: none;
+}
+
+.btn-save {
+  background: var(--primary-accent);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 12px;
+  font-weight: 700;
+  transition: var(--transition-smooth);
+}
+
+.btn-save:hover {
+  background: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(67, 24, 255, 0.2);
+}
+
+/* --- Responsive Mobile --- */
+@media (max-width: 768px) {
+  .glass-card {
+    padding: 20px;
+  }
+  .search-container {
+    max-width: 100%;
+  }
+  .table-glass td {
+    padding: 12px;
+    font-size: 13px;
+  }
+}
+
+/* --- Tombol Home Glassmorphism --- */
+.btn-home-glass {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  color: white;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.btn-home-glass i {
+  font-size: 1.2rem;
+}
+
+.btn-home-glass:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #4318ff; /* Warna aksen biru saat hover */
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Pastikan container search bisa melebar jika di desktop */
+.search-container {
+  min-width: 350px; /* Menambah lebar sedikit karena ada tambahan icon */
+}
+
+@media (max-width: 768px) {
+  .search-container {
+    min-width: 100%;
+  }
+}

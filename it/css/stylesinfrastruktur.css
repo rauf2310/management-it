@@ -1,0 +1,204 @@
+:root {
+  --primary: #0369a1;
+  --primary: #0284c7;
+  --primary-light: #e0f2fe;
+  --secondary: #64748b;
+  --success: #10b981;
+  --danger: #ef4444;
+  --warning: #f59e0b;
+  --dark: #0f172a;
+  --light: #f8fafc;
+  --body-bg: #f3f4f6;
+  --glass: rgba(255, 255, 255, 0.8);
+  --border-glass: rgba(255, 255, 255, 0.9);
+}
+
+body {
+  background-color: var(--body-bg);
+  background-image: radial-gradient(
+      at 0% 0%,
+      rgba(2, 132, 199, 0.08) 0,
+      transparent 40%
+    ),
+    radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.05) 0, transparent 40%);
+  color: var(--dark);
+  font-family: "Plus Jakarta Sans", sans-serif;
+  overflow-x: hidden;
+}
+
+/* Navigation */
+.navbar-custom {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(15px);
+  border-bottom: 1px solid #e2e8f0;
+  padding: 12px 0;
+}
+
+/* Hero Section */
+.hero-gradient {
+  /* Overlay dibuat sangat tipis (0.3) agar gambar terlihat jelas */
+  background: linear-gradient(
+      135deg,
+      rgba(15, 23, 42, 0.4) 0%,
+      rgba(30, 41, 59, 0.2) 100%
+    ),
+    url("../assets/img/backgroundlogin.jpg");
+
+  /* Pengaturan Gambar agar tajam dan pas */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  /* Tambahan: Memastikan gambar tidak terlihat buram di layar besar */
+  background-attachment: scroll;
+
+  color: white;
+  padding: 140px 0 100px 0;
+  border-radius: 0 0 60px 60px;
+  position: relative;
+  overflow: hidden;
+
+  /* Memberikan sedikit bayangan pada teks agar tetap terbaca meski gambar jelas */
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Glass Cards */
+.glass-card {
+  background: var(--glass) !important;
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  border: 1px solid var(--border-glass) !important;
+  border-radius: 24px;
+  padding: 25px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  height: 100%;
+}
+
+.glass-card:hover {
+  transform: translateY(-8px);
+  background: rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06);
+}
+
+/* Swiper Navigation */
+.swiper-container-wrapper {
+  position: relative;
+  padding: 0 60px; /* Ditambah dari 50px ke 60px agar tombol punya ruang bernapas */
+}
+.swiper-button-prev-custom,
+.swiper-button-next-custom {
+  position: absolute;
+  top: 50%;
+  transform: translateY(
+    -50%
+  ); /* Diubah ke -50% agar benar-benar di tengah secara vertikal */
+  width: 45px;
+  height: 45px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.swiper-button-prev-custom:hover,
+.swiper-button-next-custom:hover {
+  background: var(--primary);
+  color: #ffffff;
+  border-color: var(--primary);
+}
+
+.swiper-button-prev-custom {
+  left: 0;
+}
+
+.swiper-button-next-custom {
+  right: 0;
+}
+
+/* Memastikan icon di dalam card terlihat rapi */
+.stat-icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  margin-right: 15px;
+  font-size: 1.25rem;
+}
+
+/* Monitoring UI */
+.status-indicator {
+  padding: 6px 14px;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.bg-light-success {
+  background: #dcfce7;
+  color: #166534;
+}
+.bg-light-danger {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.progress {
+  background: #e2e8f0;
+  height: 8px;
+  border-radius: 10px;
+}
+
+.topology-box {
+  background-color: #f8fafc;
+  background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+  background-size: 20px 20px;
+  border: 2px dashed #cbd5e1;
+  border-radius: 20px;
+  min-height: 350px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.org-card {
+  text-align: center;
+  padding: 30px;
+  border-radius: 24px;
+  background: white;
+  border-top: 6px solid var(--primary);
+  transition: 0.3s;
+}
+
+.profile-img {
+  width: 65px;
+  height: 65px;
+  background: #f1f5f9;
+  border-radius: 50%;
+  margin: 0 auto 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: var(--primary);
+}
+
+.stat-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 15px;
+}

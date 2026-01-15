@@ -1,0 +1,166 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #4CAF50, #2196F3);
+    perspective: 1000px;
+    padding: 20px;
+}
+
+.container {
+    position: relative;
+    text-align: center;
+    color: #fff;
+    width: 100%;
+    max-width: 800px; /* Diperlebar agar grid 2 kolom tidak sesak */
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transform-style: preserve-3d;
+}
+
+/* TOMBOL HOME - Dipaksa ke pojok kanan atas */
+.btn-home {
+    position: absolute; /* Lepas dari aturan text-align center */
+    top: 20px;         /* Jarak dari atas kotak */
+    right: 20px;        /* Jarak dari kanan kotak */
+    width: 45px;
+    height: 45px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-decoration: none;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    z-index: 100;
+}
+
+.btn-home:hover {
+    background: rgba(255, 255, 255, 0.4);
+    transform: scale(1.1) rotate(15deg);
+    color: #FFC107;
+}
+
+h1 {
+    font-size: 2.2em;
+    margin-bottom: 30px;
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    transform: translateZ(30px);
+}
+
+/* --- LOGIKA GRID --- */
+.form-wrapper {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Membagi 2 kolom sama rata */
+    gap: 20px;
+    transform-style: preserve-3d;
+}
+
+/* Elemen yang harus lebar penuh (Textarea & Button) */
+.card-full {
+    grid-column: span 2;
+}
+
+.input-card {
+    position: relative;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 15px;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
+    transform-style: preserve-3d;
+}
+
+.input-card:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-5px) translateZ(10px);
+}
+
+.input-card .icon {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.2em;
+    margin-right: 15px;
+}
+
+.input-card input, 
+.input-card textarea,
+.form-control {
+    flex-grow: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-size: 1em;
+    width: 100%;
+}
+
+.input-card input::placeholder,
+.input-card textarea::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Khusus Textarea */
+.input-card.card-large {
+    align-items: flex-start;
+    padding-top: 15px;
+}
+
+.input-card textarea {
+    min-height: 80px; /* Tinggi dikurangi agar hemat ruang */
+    resize: none;
+}
+
+/* Tombol Kirim */
+.submit-button {
+    background: linear-gradient(90deg, #FFC107, #FF9800);
+    color: #fff;
+    border: none;
+    border-radius: 15px; /* Disamakan dengan input card agar harmonis */
+    padding: 15px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.submit-button:hover {
+    background: linear-gradient(90deg, #FF9800, #FFC107);
+    filter: brightness(1.1);
+    transform: translateZ(20px);
+}
+
+
+/* RESPONSIVE: Balik ke 1 kolom jika layar kecil (HP) */
+@media (max-width: 650px) {
+    .form-wrapper {
+        grid-template-columns: 1fr;
+    }
+    .card-full {
+        grid-column: span 1;
+    }
+    .container {
+        padding: 20px;
+    }
+}

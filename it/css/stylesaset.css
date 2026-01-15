@@ -1,0 +1,1016 @@
+/* ==========================================================================
+   1. VARIABLES & RESET
+   ========================================================================== */
+:root {
+  /* Colors */
+  --primary: #0f172a;
+  --accent: #38bdf8;
+  --accent-glow: rgba(56, 189, 248, 0.2);
+  --success: #10b981;
+  --danger: #f43f5e;
+  --text-main: #f1f5f9;
+  --text-dim: #94a3b8;
+
+  /* Glassmorphism */
+  --glass-bg: rgba(15, 23, 42, 0.75);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-input: rgba(255, 255, 255, 0.05);
+
+  /* Motion */
+  --transition-std: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #020617;
+  color: var(--text-main);
+  font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+  min-height: 100vh;
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+/* ==========================================================================
+   2. LAYOUT & BACKGROUND
+   ========================================================================== */
+.parallax-bg {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(
+      135deg,
+      rgba(15, 23, 42, 0.92),
+      rgba(30, 58, 138, 0.85)
+    );
+  z-index: -1;
+}
+
+.container {
+  padding: 40px 20px;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+/* ==========================================================================
+   3. COMPONENTS: TOP BAR & SEARCH
+   ========================================================================== */
+.top-bar {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  padding: 20px 25px;
+  border-radius: 15px;
+  border: 1px solid var(--glass-border);
+  margin-bottom: 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.search-wrapper {
+  display: flex;
+  align-items: flex-end;
+  gap: 15px;
+  flex: 1;
+  min-width: 300px;
+}
+
+.search-input-group {
+  position: relative;
+  flex: 1;
+  max-width: 300px;
+}
+
+.search-input-group i {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--accent);
+  pointer-events: none;
+}
+
+#searchInput,
+.input-date-custom {
+  width: 100%;
+  background: var(--glass-input);
+  border: 1px solid var(--glass-border);
+  color: white;
+  border-radius: 10px;
+  height: 45px;
+  transition: var(--transition-std);
+  outline: none;
+}
+
+#searchInput {
+  padding: 10px 15px 10px 45px;
+}
+
+#searchInput:focus,
+.input-date-custom:focus {
+  border-color: var(--accent);
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 15px var(--accent-glow);
+}
+
+.filter-date-item input.input-date-custom {
+  width: 100%; /* Memaksa input mengikuti lebar kolom induk */
+  box-sizing: border-box; /* Kunci: Menghitung padding & border di dalam lebar 100% */
+  padding: 8px 12px; /* Ruang dalam agar teks tidak mepet garis */
+  font-size: 0.9rem;
+  border: 1px solid;
+  border-radius: 6px;
+  outline: none;
+  transition: border-color 0.2s ease-in-out;
+  -webkit-appearance: none;
+}
+
+/* Efek saat input diklik */
+.filter-date-item input.input-date-custom:focus {
+  border-color: #80bdff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Merapikan icon kalender bawaan browser agar tidak menempel ke pinggir */
+.filter-date-item input.input-date-custom::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  padding: 2px;
+}
+
+/* ==========================================================================
+   4. DATA TABLE
+   ========================================================================== */
+.table-wrapper {
+  contain: content;
+  background: var(--glass-bg);
+  backdrop-filter: blur(8px);
+  border-radius: 16px;
+  border: 1px solid var(--glass-border);
+  overflow-x: auto;
+  box-shadow: var(--shadow-lg);
+  transform: translateZ(0); /* Memaksa GPU membantu proses render */
+  backface-visibility: hidden;
+  perspective: 1000;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 1100px;
+}
+
+th {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 18px 20px;
+  text-align: left;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: var(--accent);
+  letter-spacing: 1.5px;
+  border-bottom: 2px solid var(--glass-border);
+}
+
+td {
+  padding: 18px 20px;
+  font-size: 0.85rem;
+  border-bottom: 1px solid var(--glass-border);
+  vertical-align: top;
+}
+
+tr {
+  transition: var(--transition-std);
+}
+tr:hover td {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+/* Typography inside table */
+.user-info b {
+  display: block;
+  font-size: 0.95rem;
+  color: #fff;
+  margin-bottom: 4px;
+}
+.user-info span {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  display: block;
+}
+.net-code {
+  font-family: "JetBrains Mono", "Consolas", monospace;
+  color: var(--success);
+}
+
+/* ==========================================================================
+   5. MODAL & FORMS
+   ========================================================================== */
+.modal-backdrop {
+  backdrop-filter: blur(10px);
+  background-color: rgba(0, 0, 0, 0.8) !important;
+}
+
+.modal-content.modal-box {
+  background: linear-gradient(145deg, #1e293b, #0f172a);
+  border-radius: 24px;
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+  color: var(--text-main);
+}
+
+.text-gradient {
+  background: linear-gradient(to right, #38bdf8, #818cf8);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: bold;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  padding: 20px;
+}
+
+.form-section {
+  background: rgba(255, 255, 255, 0.02);
+  padding: 20px;
+  border-radius: 14px;
+  border: 1px solid var(--glass-border);
+  transition: var(--transition-std);
+}
+
+.form-section:hover {
+  border-color: var(--accent-glow);
+}
+
+/* Input styling within modal */
+.modal-form .form-control,
+.modal-form .form-select {
+  background-color: rgba(0, 0, 0, 0.2) !important;
+  border: 1px solid var(--glass-border) !important;
+  color: #fff !important;
+  border-radius: 10px !important;
+  padding: 10px 14px !important;
+}
+
+.modal-form .form-control:focus,
+.modal-form .form-select:focus {
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 0 4px var(--accent-glow) !important;
+}
+
+/* Custom Arrow for Select */
+.modal-form select.form-select {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%2338bdf8' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e") !important;
+  background-size: 16px 12px !important;
+}
+
+/* --- Modal Pilihan Specific Styling --- */
+
+/* Parent Container */
+#modalPilihan .modal-content {
+  background: linear-gradient(145deg, #1e293b, #0f172a);
+  border-radius: 24px;
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+  padding: 10px;
+}
+
+#modalPilihan .modal-header {
+  border-bottom: 1px solid var(--glass-border);
+  padding: 20px 25px;
+}
+
+#modalPilihan .modal-title {
+  color: var(--accent);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 1.1rem;
+}
+
+/* Tombol Kategori Aset */
+#modalPilihan .btn-outline-primary {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--glass-border);
+  color: var(--text-main);
+  border-radius: 16px;
+  transition: var(--transition-std);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(5px);
+}
+
+/* Efek Hover & Glow */
+#modalPilihan .btn-outline-primary:hover {
+  background: var(--accent-glow);
+  border-color: var(--accent);
+  color: #fff;
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3), 0 0 15px var(--accent-glow);
+}
+
+/* Icon Styling */
+#modalPilihan .btn-outline-primary i {
+  color: var(--accent);
+  transition: var(--transition-std);
+  margin-bottom: 10px;
+}
+
+#modalPilihan .btn-outline-primary:hover i {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 8px var(--accent));
+}
+
+/* Penyesuaian Grid Gap */
+#modalPilihan .modal-body {
+  padding: 25px;
+}
+
+#modalPilihan .g-3 {
+  --bs-gutter-x: 1.5rem;
+  --bs-gutter-y: 1.5rem;
+}
+
+/* Tombol Close */
+#modalPilihan .btn-close {
+  filter: invert(1) grayscale(1) brightness(2);
+  opacity: 0.8;
+}
+
+/* 1. Menghilangkan scroll pada body saat modal buka (mencegah double scroll) */
+body.modal-open {
+  overflow: hidden !important;
+}
+
+/* 2. Optimasi ukuran modal agar muat di layar standar tanpa scroll */
+#modalTambahKomputer .modal-body,
+#modalTambahLaptop .modal-body {
+  max-height: 80vh; /* Membatasi tinggi modal 80% dari tinggi layar */
+  overflow-y: auto; /* Scroll hanya muncul di dalam body jika sangat diperlukan */
+  padding: 1.5rem !important;
+}
+
+/* 3. Menghilangkan scrollbar secara visual (Clean Look) namun tetap bisa di-scroll dengan mouse */
+#modalTambahKomputer .modal-body::-webkit-scrollbar,
+#modalTambahLaptop .modal-body::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+/* 4. Mampatkan jarak antar elemen (Squeeze layout) */
+.modal-form .form-section {
+  padding: 15px !important; /* Kurangi padding dari 20px ke 15px */
+  margin-bottom: 0;
+}
+
+.modal-form .mb-3 {
+  margin-bottom: 0.8rem !important; /* Kurangi jarak bawah antar input */
+}
+
+.modal-form .section-title {
+  margin-bottom: 1rem !important;
+  font-size: 0.9rem;
+}
+
+/* 5. Pastikan modal-dialog tidak terlalu jauh dari atas */
+.modal-dialog-centered {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+/* ==========================================================================
+   6. BUTTONS & ACTIONS
+   ========================================================================== */
+.btn-save-gradient {
+  background: linear-gradient(135deg, #0ea5e9, #6366f1);
+  color: white;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 10px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: var(--transition-std);
+}
+
+.btn-save-gradient:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4);
+}
+
+.btn-cancel {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-dim);
+  border: 1px solid var(--glass-border);
+  padding: 10px 20px;
+  border-radius: 10px;
+  transition: var(--transition-std);
+}
+
+.btn-cancel:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+.btn-icon {
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  border: 1px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.03);
+  color: white;
+  transition: var(--transition-std);
+}
+
+.btn-icon.edit:hover {
+  background: var(--success);
+}
+.btn-icon.delete:hover {
+  background: var(--danger);
+}
+
+/* Menentukan warna teks hitam pada semua pilihan select */
+.form-select option {
+  color: #222121 !important;
+  background-color: #ffffff; /* Opsional: memastikan background tetap putih */
+}
+
+/* Opsional: Menjaga warna saat select difokuskan */
+.form-select:focus {
+  color: #000000;
+}
+
+.btn-search-premium {
+  height: 38px;
+  font-size: 0.85rem;
+  /* Latar belakang transparan gelap agar terlihat di background apapun */
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #0dcaf0;
+  border: 1px solid #0dcaf0;
+  padding: 0 15px;
+  border-radius: 8px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-search-premium:hover {
+  background-color: #0dcaf0;
+  color: #000; /* Teks jadi hitam saat hover agar kontras dan terbaca */
+  box-shadow: 0 0 15px rgba(13, 202, 240, 0.4);
+  transform: translateY(-1px); /* Efek sedikit terangkat */
+}
+
+.btn-search-premium:active {
+  transform: translateY(0);
+}
+
+/* Memberi sedikit jarak antar ikon dan teks */
+.btn-search-premium i {
+  font-size: 1rem;
+}
+
+/* ==========================================================================
+   7. RESPONSIVE DESIGN
+   ========================================================================== */
+@media (max-width: 1100px) {
+  .top-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .search-wrapper {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 768px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+  .container {
+    padding: 20px 10px;
+  }
+}
+
+.action-buttons {
+  display: flex; /* Mengaktifkan mode sejajar */
+  align-items: center; /* Menyejajarkan secara vertikal di tengah */
+  gap: 10px; /* Memberikan jarak antar tombol */
+}
+
+/* Memindahkan inline style ke class agar lebih rapi */
+.btn-custom-height {
+  height: 45px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap; /* Mencegah teks turun ke bawah jika layar sempit */
+}
+
+/* Menargetkan semua jenis browser */
+.modal-form .form-control::placeholder {
+  color: #6c757d !important; /* Warna abu-abu standar Bootstrap */
+  opacity: 1; /* Penting untuk Firefox */
+}
+
+/* Untuk Internet Explorer */
+.modal-form .form-control:-ms-input-placeholder {
+  color: #6c757d !important;
+}
+
+/* Untuk Microsoft Edge */
+.modal-form .form-control::-ms-input-placeholder {
+  color: #6c757d !important;
+}
+
+/* untuk expor excel */
+@media print {
+  /* Sembunyikan elemen yang tidak perlu */
+  body * {
+    visibility: hidden;
+  }
+
+  /* Tampilkan area utama */
+  .navbar-custom,
+  .card-custom,
+  .card-custom * {
+    visibility: visible;
+  }
+
+  /* Atur agar layout mengalir secara alami (tidak tumpang tindih) */
+  .navbar-custom {
+    position: relative;
+    display: block;
+    width: 100%;
+    border-bottom: 2px solid #000 !important;
+    margin-bottom: 20px;
+  }
+
+  .card-custom {
+    position: relative;
+    display: block;
+    width: 100% !important;
+    border: none !important;
+  }
+
+  /* Perbaikan Tabel */
+  .table-responsive {
+    overflow: visible !important;
+  }
+
+  table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+  }
+
+  th,
+  td {
+    border: 1px solid #000 !important;
+    padding: 6px !important;
+    font-size: 10pt !important;
+    color: #000 !important;
+  }
+
+  /* Hilangkan tombol agar tidak muncul di kertas */
+  .btn,
+  .nav-link,
+  .vr,
+  .total-badge,
+  .d-flex.gap-2 {
+    display: none !important;
+  }
+}
+
+/* CSS untuk Animasi Berjalan */
+/* Jalur Animasi yang Profesional */
+.data-pulse {
+  position: absolute;
+  bottom: -2px;
+  left: -150px;
+  width: 150px;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #0dcaf0,
+    #ffc107,
+    transparent
+  );
+  animation: scan-data 4s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  box-shadow: 0 0 15px rgba(13, 202, 240, 0.8);
+}
+
+@keyframes scan-data {
+  0% {
+    left: -150px;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    left: 100%;
+    opacity: 0;
+  }
+}
+
+:root {
+  --vscode-bg: #1e1e1e;
+  --vscode-border: rgba(255, 255, 255, 0.1);
+  --gold: #ffc107;
+  --blue-glow: #007acc;
+}
+
+/* Container Utama dengan Efek Kedalaman (Z-Axis) */
+.container-glass {
+  background: linear-gradient(145deg, #001b94, #01112c);
+  border: 1px solid rgba(56, 189, 248, 0.2); /* Border biru transparan */
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Efek Glow pada Brand */
+.brand-gold {
+  color: var(--gold);
+  text-shadow: 0 0 15px rgba(255, 193, 7, 0.4);
+  font-weight: 800;
+}
+
+/* Status Indicator ala VS Code Status Bar */
+.status-indicator {
+  display: flex;
+  align-items: center;
+  background: rgba(0, 122, 204, 0.1);
+  padding: 2px 10px;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 122, 204, 0.2);
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #1eff00;
+  border-radius: 50%;
+  margin-right: 8px;
+  box-shadow: 0 0 8px #4ec9b0;
+  animation: blink 2s infinite;
+}
+
+.status-text {
+  font-size: 10px;
+  font-family: "Consolas", monospace;
+  color: #4ec9b0;
+  letter-spacing: 1px;
+}
+
+/* Divider Vertikal */
+.divider-vertical {
+  width: 1px;
+  height: 20px;
+  background: var(--vscode-border);
+  margin: 0 15px;
+}
+
+/* Animasi Logo 3D */
+.logo-3d {
+  filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.5));
+  transition: transform 0.3s ease;
+}
+
+.logo-wrapper:hover .logo-3d {
+  transform: rotateY(15deg) rotateX(10deg) scale(1.05);
+}
+
+/* Dekorasi Titik di Ujung (Window Controls style) */
+.vscode-decor span {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-left: 8px;
+  background: var(--vscode-border);
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+/* Tracking Tight untuk kesan Header Software */
+.tracking-tight {
+  letter-spacing: -0.5px;
+  font-size: 1.75rem;
+}
+/* untuk tampilan didalam tabel cek ip */
+.ip-mini-box {
+  background: rgba(23, 162, 184, 0.05);
+  border: 1px solid rgba(23, 162, 184, 0.2);
+  color: #0dcaf0;
+  text-align: center;
+  padding: 6px 2px;
+  border-radius: 6px;
+  /* Menggunakan font monospaced agar angka sejajar */
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 0.75rem;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  white-space: nowrap; /* Mencegah teks turun ke bawah */
+}
+
+.ip-mini-box:hover {
+  background: #0dcaf0;
+  color: #000;
+  transform: scale(1.05);
+  z-index: 10;
+}
+/* Warna untuk IP yang sudah terpakai (Merah) */
+.ip-mini-box.terpakai {
+  background: rgba(220, 53, 69, 0.1);
+  border: 1px solid rgba(220, 53, 69, 0.4);
+  color: #ff6b6b;
+  cursor: not-allowed;
+}
+
+.ip-mini-box.terpakai:hover {
+  background: #dc3545;
+  color: #fff;
+  transform: scale(1.05);
+}
+
+.network-badge {
+  background-color: #1a1d20;
+  padding: 8px 15px;
+  border-left: 4px solid #0dcaf0;
+  margin-top: 20px;
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* untuk button melayang kembali ke atas  start*/
+#btn-back-to-top {
+  text-decoration: none !important;
+  display: none; /* Tetap dikontrol JS untuk muncul/hilang saja */
+  align-items: center;
+  justify-content: center;
+  position: fixed !important;
+  bottom: 30px !important;
+  right: 30px !important;
+  z-index: 99999 !important; /* Nilai sangat tinggi agar di depan */
+
+  /* Ukuran dan Bentuk */
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+
+  /* Warna yang mencolok */
+  background-color: #0dcaf0 !important;
+  color: #000 !important;
+  border: 2px solid #fff !important;
+
+  /* Pastikan terlihat jika JS belum jalan */
+  display: none;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+html {
+  scroll-behavior: smooth;
+}
+
+#btn-back-to-top:hover {
+  background-color: #0bb5d8;
+  transform: translateY(-5px); /* Efek melompat kecil saat hover */
+  box-shadow: 0 5px 15px rgba(13, 202, 240, 0.4);
+}
+
+/* Animasi muncul */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* CSS BARCODE SAAT BARCODE DI CETAK STAART */
+@media print {
+  /* 1. Sembunyikan SEMUA elemen di halaman */
+  body * {
+    visibility: hidden;
+    margin: 0;
+  }
+
+  /* 2. Tampilkan HANYA area print dan anak-anaknya */
+  #printArea,
+  #printArea * {
+    visibility: visible;
+  }
+
+  /* 3. Paksa area print ke posisi paling atas kertas */
+  #printArea {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    background-color: white !important;
+    color: black !important;
+    border: none !important;
+  }
+
+  /* 4. Sembunyikan tombol-tombol saat dicetak */
+  .modal-footer,
+  .btn-close,
+  .modal-header {
+    display: none !important;
+  }
+
+  /* 5. Pastikan Barcode Hitam Pekat */
+  #barcodeCanvas {
+    display: block;
+    margin: 0 auto;
+  }
+
+  @page {
+    size: auto;
+    margin: 0mm;
+  }
+}
+/* CSS BARCODE SAAT BARCODE DI CETAK END */
+
+/* ==========================================================================
+   FIX SCROLL LAG (ULTRA OPTIMIZATION)
+   ========================================================================== */
+
+/* 1. Mencegah browser menghitung ulang layout saat scroll (Reflow) */
+.table-wrapper,
+.parallax-bg,
+.container,
+table {
+  /* Memindahkan proses render ke GPU secara permanen */
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* 2. Optimasi Baris Tabel: Matikan transisi saat scroll */
+tr {
+  /* Transisi diringankan agar tidak membebani CPU saat scrolling */
+  transition: background-color 0.1s linear !important;
+  will-change: background;
+}
+
+/* 3. Menghapus beban Backdrop-Filter yang tumpang tindih */
+/* Hanya gunakan blur pada wrapper, JANGAN pada elemen di dalam tabel */
+.table-wrapper td {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* 4. Mencegah Render Gambar Berulang */
+.parallax-bg {
+  /* Mencegah gambar ikut 'bergetar' saat discroll */
+  will-change: transform;
+  background-attachment: scroll; /* Mengubah fixed ke scroll untuk meningkatkan performa */
+  position: fixed; /* Tetap fixed secara posisi, tapi render disederhanakan */
+}
+
+/* 5. Kurangi beban Shadow pada elemen yang banyak */
+.ip-mini-box {
+  box-shadow: none !important; /* Bayangan kecil pada banyak item sangat berat */
+  transform: translateZ(0);
+}
+
+/* 6. Hilangkan pointer events pada dekorasi animasi agar tidak dihitung saat scroll */
+.data-pulse {
+  pointer-events: none;
+}
+.disable-hover {
+  pointer-events: none !important;
+}
+
+/* styles untuk checkbox barcode start*/
+/* Hilangkan jarak antara checkbox dan nomor */
+.col-check {
+  width: 1% !important;
+  padding-right: 2px !important;
+  text-align: center;
+}
+.col-no {
+  width: 1% !important;
+  padding-left: 2px !important;
+  padding-right: 10px !important; /* Jarak ke kolom Identitas */
+  text-align: center;
+  white-space: nowrap;
+}
+.label-box-preview {
+  width: 200px;
+  background: white;
+  border: 1px solid #000;
+  padding: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+.label-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 2px solid #333;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+}
+.label-logo-img {
+  width: 25px;
+  height: 25px;
+  margin-right: 8px;
+}
+.label-title {
+  font-size: 14px;
+  font-weight: bold;
+}
+#barcodeCanvas {
+  width: 100%;
+  height: auto;
+}
+/* styles untuk checkbox barcode end*/
+
+/* css untuk pengaturan table page */
+#floating-pagination-container {
+  position: fixed;
+  bottom: 95px; /* Jarak dari bawah (di atas tombol back-to-top) */
+  right: 30px; /* Harus sama dengan btn-back-to-top */
+  width: 50px; /* Lebar disamakan dengan tombol back-to-top agar simetris */
+  z-index: 99998;
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  padding: 10px 0; /* Padding atas-bawah saja agar tombol di dalamnya rata tengah */
+  border-radius: 15px;
+  border: 1px solid var(--glass-border);
+  display: none; /* Dikontrol oleh JS */
+  flex-direction: column;
+  align-items: center; /* Menyejajarkan isi ke tengah secara horizontal */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.pagination-label {
+  font-size: 10px;
+  color: var(--text-dim);
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+#paginationWrapper {
+  display: flex;
+  flex-direction: column; /* Tersusun vertikal agar ramping */
+  gap: 8px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Ukuran tombol agar serasi */
+.custom-page-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--accent);
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.custom-page-btn.active-page {
+  background: var(--accent) !important;
+  color: #000 !important;
+  border: none;
+}

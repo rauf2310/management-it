@@ -1,0 +1,112 @@
+/* CSS Custom - Digabung ke dalam file agar praktis */
+body {
+  background-color: #f8f9fc;
+}
+.card {
+  border: none;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+.card-header {
+  background: linear-gradient(45deg, #4e73df, #224abe);
+  font-weight: bold;
+  color: white;
+  padding: 15px;
+}
+.table thead th {
+  background-color: #f8f9fc;
+  color: #4e73df;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  padding: 15px;
+  border-bottom: 2px solid #e3e6f0;
+}
+.table tbody td {
+  vertical-align: middle;
+  padding: 15px;
+  color: #5a5c69;
+}
+.table-hover tbody tr:hover {
+  background-color: #f1f4ff !important;
+  transition: all 0.3s ease;
+}
+.btn-kerjakan {
+  background: #1cc88a;
+  border: none;
+  color: white;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+.btn-kerjakan:hover {
+  background: #17a673;
+  transform: translateY(-2px);
+  color: white;
+}
+@media print {
+  .no-print,
+  .btn,
+  .sb-sidenav,
+  .sb-topnav,
+  .breadcrumb,
+  footer {
+    display: none !important;
+  }
+  #layoutSidenav_content {
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100%;
+  }
+  .card {
+    box-shadow: none !important;
+    border: 1px solid #ddd !important;
+  }
+}
+@media print {
+  /* 1. Sembunyikan elemen yang tidak perlu (Tombol, Sidebar, Filter) */
+  .no-print,
+  .btn,
+  .submit-button,
+  .dataTables_filter,
+  .dataTables_length,
+  .navbar,
+  footer {
+    display: none !important;
+  }
+
+  /* 2. Ubah tampilan latar belakang agar putih bersih (Hemat Tinta) */
+  body {
+    background: white !important;
+    color: black !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* 3. Pastikan Tabel memenuhi lebar kertas */
+  .container-fluid,
+  .glass-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+  }
+
+  .table {
+    width: 100% !important;
+    border: 1px solid #000 !important;
+    color: black !important;
+  }
+
+  /* Judul Laporan agar hitam & jelas */
+  h1,
+  h3 {
+    color: black !important;
+    text-align: center;
+    margin-top: 20px;
+    text-shadow: none !important;
+  }
+}

@@ -1,0 +1,315 @@
+:root {
+  --primary: #4f46e5;
+  --primary-hover: #4338ca;
+  --bg: #f8fafc;
+  --text-main: #1e293b;
+  --border: #e2e8f0;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text-main);
+  font-family: "Inter", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Navbar & Logo Styling */
+.navbar-custom {
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+  padding: 0.6rem 0;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.3s ease;
+}
+
+.logo-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f1f5f9;
+  padding: 4px;
+  border-radius: 10px;
+}
+
+.navbar-brand img {
+  max-height: 42px;
+  width: auto;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.brand-text {
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--text-main);
+  letter-spacing: -0.5px;
+}
+
+.navbar-brand:hover img {
+  transform: scale(1.08) rotate(-2deg);
+}
+
+/* Stats & Cards */
+/* Container Header Kartu */
+.card-header {
+  background: #ffffff !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;
+  padding: 1.5rem 1.5rem !important;
+}
+
+/* Judul dengan Ikon */
+.card-header h5 {
+  letter-spacing: -0.5px;
+  color: #1e293b;
+}
+
+.card-header h5 i {
+  font-size: 1.1rem;
+  background: #eef2ff;
+  padding: 8px;
+  border-radius: 10px;
+  color: #4f46e5 !important;
+}
+
+/* Styling Group Tombol */
+.btn-group {
+  gap: 10px;
+  /* Memberikan jarak antar tombol */
+}
+
+/* Base Button Style */
+.card-header .btn {
+  border-radius: 10px !important;
+  /* Membuat sudut lebih halus */
+  padding: 8px 16px !important;
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid #e2e8f0;
+}
+
+/* Tombol Cetak (Light) */
+.btn-print {
+  background-color: #ffffff;
+  color: #64748b !important;
+}
+
+.btn-print:hover {
+  background-color: #f8fafc;
+  border-color: #cbd5e1;
+  color: #1e293b !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* Tombol Excel (Success) */
+.btn-success {
+  background-color: #10b981 !important;
+  border-color: #10b981 !important;
+  color: #ffffff !important;
+}
+
+.btn-success:hover {
+  background-color: #059669 !important;
+  border-color: #059669 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.2);
+}
+
+/* Efek saat tombol diklik */
+.card-header .btn:active {
+  transform: translateY(0);
+}
+
+/* Menghilangkan border default btn-group */
+.btn-group > .btn:not(:last-child):not(.dropdown-toggle),
+.btn-group > .btn:not(:first-child) {
+  border-radius: 10px !important;
+}
+
+.total-badge {
+  background: var(--primary);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-weight: 600;
+  display: inline-block;
+}
+
+/* Table Styling */
+.table thead th {
+  background-color: #f8fafc;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #64748b;
+  border-top: none;
+  padding: 16px;
+}
+
+.table tbody td {
+  padding: 16px;
+  vertical-align: middle;
+  color: #475569;
+  border-color: #f1f5f9;
+}
+
+.badge-keperluan {
+  background: #eef2ff;
+  color: var(--primary);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.avatar-circle {
+  width: 32px;
+  height: 32px;
+  background: #f1f5f9;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #94a3b8;
+}
+
+@media print {
+  /* 1. Sembunyikan semua elemen secara default */
+  body * {
+    visibility: hidden;
+  }
+
+  /* 2. Tampilkan Navbar dan Card Tabel */
+  .navbar-custom,
+  .navbar-custom *,
+  .card-custom,
+  .card-custom * {
+    visibility: visible;
+  }
+
+  /* 3. Atur posisi Navbar dan Tabel agar presisi di kertas */
+  .navbar-custom {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    border-bottom: 2px solid #333 !important;
+    background-color: white !important;
+    z-index: 9999;
+  }
+
+  .card-custom {
+    position: absolute;
+    top: 60px;
+    /* Jarak pas di bawah navbar */
+    left: 0;
+    width: 100% !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  /* 4. SOLUSI SCROLL: Paksa tabel keluar dari mode responsive */
+  .table-responsive {
+    overflow: visible !important;
+    /* Hilangkan scroll */
+    display: block !important;
+    width: 100% !important;
+  }
+
+  table {
+    width: 100% !important;
+    table-layout: auto !important;
+    /* Biarkan kolom menyesuaikan teks */
+  }
+
+  /* 5. Sembunyikan elemen navigasi & tombol yang tidak perlu di kertas */
+  .btn-print,
+  .btn-outline-danger,
+  .nav-link,
+  .vr,
+  .total-badge {
+    display: none !important;
+  }
+
+  /* 6. Optimasi teks agar tajam di kertas */
+  .badge-keperluan {
+    border: 1px solid var(--primary) !important;
+    color: var(--primary) !important;
+    background: transparent !important;
+  }
+
+  th,
+  td {
+    border: 1px solid #dee2e6 !important;
+    /* Garis tabel lebih jelas saat di-print */
+    font-size: 10pt !important;
+  }
+}
+
+@media print {
+  /* Sembunyikan semua selain Navbar dan Tabel */
+  body * {
+    visibility: hidden;
+  }
+
+  .navbar-custom,
+  .navbar-custom *,
+  .card-custom,
+  .card-custom * {
+    visibility: visible;
+  }
+
+  /* Paksa posisi di paling atas kertas */
+  .navbar-custom {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    border-bottom: 2px solid #000 !important;
+  }
+
+  .card-custom {
+    position: absolute;
+    top: 80px;
+    left: 0;
+    width: 100% !important;
+    box-shadow: none !important;
+  }
+
+  /* HILANGKAN SCROLLBAR & PAKSA LEBAR PENUH */
+  .table-responsive {
+    overflow: visible !important;
+    display: block !important;
+    width: 100% !important;
+  }
+
+  table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+  }
+
+  th,
+  td {
+    border: 1px solid #333 !important;
+    /* Garis hitam tipis agar formal */
+    padding: 8px !important;
+    font-size: 11pt !important;
+  }
+
+  /* Sembunyikan elemen tombol saat di kertas */
+  .btn,
+  .nav-link,
+  .vr,
+  .total-badge {
+    display: none !important;
+  }
+}
